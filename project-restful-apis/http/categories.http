@@ -1,0 +1,27 @@
+### GET ALls
+GET http://localhost:9000/api/v1/categories
+
+### Update
+
+PUT http://localhost:9000/api/v1/categories/65f30dc0022ac15341cc273c
+Content-Type: application/json
+
+{
+    "categoryName": "Road bike",
+    "description": "Road bike description"
+
+}
+
+### Create a new category
+
+POST  http://localhost:9000/api/v1/categories
+Content-Type: application/json
+
+{
+    "categoryName": "Hybrid",
+    "description": "Versatile bikes for various terrains",
+    "slug": "hybrid"
+}
+
+### Delete
+DELETE http://localhost:9000/api/v1/categories/65f30dc0022ac15341cc273c

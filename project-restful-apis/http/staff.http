@@ -1,0 +1,7 @@
+
+PUT  http://localhost:9000/api/v1/staffs/
+Content-Type: application/json
+
+{
+    "password": "User@123456"
+}
