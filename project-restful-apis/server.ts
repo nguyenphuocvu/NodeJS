@@ -4,7 +4,7 @@ import globalConfig from './src/constants/config'
 // import dotenv from 'dotenv';
 // dotenv.config();
 
-const PORT = globalConfig.PORT || 9000;
+const PORT = globalConfig.PORT || 8080;
 
 /// Start the server
 const mongooseDbOptions = {

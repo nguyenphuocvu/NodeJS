@@ -1,0 +1,26 @@
+GET http://localhost:9000/api/v1/users
+
+###
+PUT http://localhost:9000/api/v1/users/66160e65fac3c8f280d4ee21
+content-Type: application/json
+
+{
+   "firstName": "John" ,
+   "lastName": "Cater",
+   "email": "john@gmail.com",
+   "mobile": "0988777666"
+}
+
+###
+DELETE http://localhost:9000/api/v1/users/66160fc95ac52634455da9ec
+
+###
+POST http://localhost:9000/api/v1/users
+content-Type: application/json
+
+{
+   "firstName": "John" ,
+   "lastName": "Cater",
+   "email": "john@gmail.com",
+   "mobile": "0988777666"
+}

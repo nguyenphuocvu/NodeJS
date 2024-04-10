@@ -1,6 +1,7 @@
 import {Request,Response, NextFunction} from 'express'
 import ordersService from '../services/orders.service';
 import { sendJsonSuccess } from '../helpers/responseHandler';
+import { log } from 'node:console';
 
 
 const getAll = async (req: Request, res: Response, next: NextFunction)=>{
@@ -31,6 +32,9 @@ const getOrderById = async (req: Request, res: Response, next: NextFunction)=>{
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = req.body;
+        console.log( 'createOrder',data);
+        
+        
 
         const order=  await ordersService.createOrder(data)
 

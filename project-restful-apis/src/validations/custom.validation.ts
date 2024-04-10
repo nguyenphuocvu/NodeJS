@@ -1,5 +1,4 @@
 
-
 const passwordStrong = (value: string, helpers: any) => {
     if(!value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/)){
         return helpers.message('Password invalid');

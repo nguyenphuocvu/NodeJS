@@ -51,7 +51,7 @@ const productSchema = new Schema(
       },
       thumbnail: {
         type: String,
-        maxLength: 50,
+        maxLength: 255,
       },
       slug: {
         type: String,
@@ -87,6 +87,7 @@ const productSchema = new Schema(
         default: false,
         enum: ['true', 'false']
       },
+      //sản phẩm mới
       isNew: {
         type: Boolean,
         default: false,
