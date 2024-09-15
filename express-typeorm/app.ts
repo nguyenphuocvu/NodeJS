@@ -1,56 +1,39 @@
-import * as express from "express"
-import { Request, Response } from "express"
-import { User } from "./entities/user.entity"
-import { myDataSource } from "./data-soucre"
-
-// establish database connection
-myDataSource
-    .initialize()
-    .then(() => {
-        console.log("Data Source has been initialized!")
-    })
-    .catch((err) => {
-        console.error("Error during Data Source initialization:", err)
-    })
-
+import express from "express"
+import { Request, Response, NextFunction } from "express"
+import bodyParser from "body-parser"
+import routerProduct from "./routes/products.route"
+import routerCategories from "./routes/categories.route"
+import routerBrand from "./routes/brand.route"
+import createError  from 'http-errors';
+import cors from 'cors'
 // create and setup express app
 const app = express()
-app.use(express.json())
+app.use(bodyParser.json())
+// app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// register routes
-app.get("/users", async function (req: Request, res: Response) {
-    const users = await myDataSource.getRepository(User).find()
-    res.json(users)
-})
+app.use(cors({ origin: '*' })); //Cho phép gọi bất kỳ đâu
 
-app.get("/users/:id", async function (req: Request, res: Response) {
-    const results = await myDataSource.getRepository(User).findOneBy({
-        id: parseInt(req.params.id),
-    })
-    return res.send(results)
-})
+app.use('/products', routerProduct)
+app.use('/categories', routerCategories)
+app.use('/brands', routerBrand)
 
-app.post("/users", async function (req: Request, res: Response) {
-    const user = await myDataSource.getRepository(User).create(req.body)
-    const results = await myDataSource.getRepository(User).save(user)
-    return res.send(results)
-})
 
-app.put("/users/:id", async function (req: Request, res: Response) {
-    const user = await myDataSource.getRepository(User).findOneBy({
-        id: parseInt(req.params.id),
-    })
-    myDataSource.getRepository(User).merge(user, req.body)
-    const results = await myDataSource.getRepository(User).save(user)
-    return res.send(results)
-})
-
-app.delete("/users/:id", async function (req: Request, res: Response) {
-    const results = await myDataSource.getRepository(User).delete(req.params.id)
-    return res.send(results)
-})
-
-// start express server
-app.listen(3000, ()=> {
-  console.log('Connect server successful');
-})
+// catch 404 and forward to error handler
+app.use(function (req: Request, res: Response, next: NextFunction) {
+    next(createError(404));
+  });
+  
+  // error handler
+  app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  
+    const statusCode = err.status || 500;
+    res.status(statusCode).json({ 
+      statusCode: statusCode, 
+      message: err.message 
+    });
+  });
+export default app;
